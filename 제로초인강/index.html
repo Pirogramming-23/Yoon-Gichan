@@ -10,13 +10,25 @@
             text-align: center;
         }
         #wrap-center {
+            display: inline-block;
             width: 1280px;
             background-color: yellow;
         }
-        #header-hamburger {
+        #header {
+            text-align: left;
+        }
+        #header-hambureger {
             margin-top: 18px;
-            width: 46px;
-            height: 46px;
+            padding: 10px;
+            display: inline-block;
+        }
+        #header-hamburger > div {
+            background-image: url("./sp_main.png");
+            background-size: 463px 442px;
+            background-position: -311px -166px;
+            background-repeat: no-repeat;
+            width: 26px;
+            height: 26px;
         }
         #main {
             height: 2000px;
@@ -25,9 +37,11 @@
 </head>
 <body>
     <div id="wrap">
-        <div id="wrap-center" style="display: inline-block;">
+        <div id="wrap-center">
             <div id="header">
-                <div id="header-hamburger"></div>
+                <div id="header-hamburger">
+                    <div></div>
+                </div>
             </div>
             <div id="search"></div>
             <div id="nav"></div>
