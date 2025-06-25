@@ -81,22 +81,32 @@
             background-color: yellow;
         }
         #header {
-            text-align: left;
+            position:relative;
+            text-align: left; 
         }
         #header-hamburger {
+            position: absolute;
+            top: 5px;
+            left: -12px;
             margin-top: 18px;
-            padding: 10px;
+            padding: 8px;
             display: inline-block;
             background: none;
             border: 0px;
             cursor: pointer;
         }
-        #header-hamburger:hover{
+        #header-hamburger:hover::before{
+            position:absolute;
+            content: '';
+            width: 44px;
+            height: 44px;
+            top: 0px;
+            left: 0px;
             border-radius: 50%;
             background-color: var(--color_option_bg);
         }
         #header-hamburger > div {
-            background-image: url("./sp_main.png");
+            background-image: url(./sp_main.png);
             background-size: 463px 442px;
             background-position: -311px -166px;
             background-repeat: no-repeat;
