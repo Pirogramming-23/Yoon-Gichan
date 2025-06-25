@@ -72,6 +72,13 @@
             --color_shop: #9858f5;
             --color_shop_rgb: 152, 88, 245;
         }
+        *{
+            box-sizing:    border-box;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
         #wrap {
             text-align: center;
         }
@@ -84,18 +91,16 @@
             position:relative;
             text-align: left; 
         }
-        #header-hamburger {
+        #header-hamburger,#header-naverpay,#header-notice {
             position: absolute;
             top: 5px;
-            left: -12px;
-            margin-top: 18px;
             padding: 8px;
             display: inline-block;
             background: none;
             border: 0px;
             cursor: pointer;
         }
-        #header-hamburger:hover::before{
+        #header-hamburger:hover::before, #header-naverpay:hover::before, #header-notice:hover::before {
             position:absolute; /*원래 흐름에서 완전히 벗어남, 기준은 body아니면 부모태그중에 static이 아닌 친구*/
             content: '';
             z-index: 0; /*형제끼리만 사용 가능*/
@@ -106,7 +111,7 @@
             border-radius: 50%;
             background-color: var(--color_option_bg);
         }
-        #header-hamburger > div {
+        #header-hamburger > div,#header-naverpay > div,#header-notice > div {
             background-image: url(./sp_main.png);
             background-size: 463px 442px;
             background-position: -311px -166px;
@@ -115,6 +120,22 @@
             width: 32px;
             height: 32px;
             z-index: 1;
+        }
+        #header-hamburger {
+            left: -12px;
+        }
+        #header-naverpay {
+            right: 42px;
+            padding: 10px 8px;
+        }
+        #header-naverpay > div {
+            background-position: -248px -260px;
+        }
+        #header-notice {
+            right: -10px;
+        }
+        #header-notice > div {
+            background-position: -311px -232px;
         }
         #main {
             height: 2000px;
@@ -136,6 +157,14 @@
                 <button id="header-hamburger">
                     <div></div>
                     <span class="blind">확장영역</span>
+                </button>
+                <button id="header-naverpay">
+                    <div></div>
+                    <span class="blind">네이버페이</span>
+                </button>
+                <button id="header-notice">
+                    <div></div>
+                    <span class="blind">알림</span>
                 </button>
             </div>
             <div id="search"></div>
