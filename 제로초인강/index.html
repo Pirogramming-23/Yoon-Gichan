@@ -194,6 +194,19 @@
                     padding-left: 10px;
                     justify-content: center;
                     align-items: center;
+                    position: relative;
+                }
+                #search > form:focus-within #search-svg::after{
+                    display: inline-block;
+                    content: '';
+                    width: 1px;
+                    height: 20px;
+                    position: absolute;
+                    right: 0px;
+                    background-color: #e4e4e4;
+                }
+                #search-svg::after{
+                    display: none;
                 }
                 #search-input {
                 font-size: 1.4rem;
@@ -208,7 +221,7 @@
                     color: white;
                 }
                 #search-input:focus::placeholder {
-                    color: e4e4e4;
+                    color: #e4e4e4;
                 }
                 #search-svg svg{
                     width: 24px;
