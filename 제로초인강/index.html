@@ -96,12 +96,13 @@
             cursor: pointer;
         }
         #header-hamburger:hover::before{
-            position:absolute;
+            position:absolute; /*원래 흐름에서 완전히 벗어남, 기준은 body아니면 부모태그중에 static이 아닌 친구*/
             content: '';
+            z-index: 0; /*형제끼리만 사용 가능*/
             width: 44px;
             height: 44px;
-            top: 0px;
-            left: 0px;
+            top: 2px;
+            left: 2px;
             border-radius: 50%;
             background-color: var(--color_option_bg);
         }
@@ -110,11 +111,21 @@
             background-size: 463px 442px;
             background-position: -311px -166px;
             background-repeat: no-repeat;
+            position: relative; /*원래흐름(static)에서 제자리 걸음*/
             width: 32px;
             height: 32px;
+            z-index: 1;
         }
         #main {
             height: 2000px;
+        }
+        .blind { /* 시각적으로 숨기고 스크린 리더기에서 읽을 수 있도록 하는 클래스 */
+            position: absolute;
+            clip: rect(0 0 0 0);
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -124,6 +135,7 @@
             <div id="header">
                 <button id="header-hamburger">
                     <div></div>
+                    <span class="blind">확장영역</span>
                 </button>
             </div>
             <div id="search"></div>
