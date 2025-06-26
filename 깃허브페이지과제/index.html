@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GitHub Sign Up</title>
+  <link rel="stylesheet" href="mystyle.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <header class="top-header">
+    <nav class="nav-bar">
+        <div class="logo">
+            <img src="favicon.ico" alt="GitHub Logo" class="logo-icon"> GitHub
+        </div>
+      <ul class="nav-menu">
+        <li><a href="#" class="dropdown">Why GitHub?</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Enterprise</a></li>
+        <li><a href="#" class="dropdown">Explore</a></li>
+        <li><a href="#">Marketplace</a></li>
+        <li><a href="#" class="dopdown">Pricing</a></li>
+      </ul>
+      <div class="auth-links">
+        <div class="search-wrapper">
+            <input type="text" class="search-input" placeholder="Search GitHub">
+            <span class="search-shortcut">/</span>
+        </div>
+        <a href="#">Sign in</a>
+        <button class="sign-up-btn">Sign up</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <section class="text-section">
+      <h1>Built for</h1>
+      <h1>developers</h1>
+      <p>
+        GitHub is a development platform inspired by the way you work. From
+        <span class="highlight">open source</span> to
+        <span class="highlight">business</span>, you can host and review code,
+        manage projects, and build software alongside 50 million developers.
+      </p>
+    </section>
+
+    <section class="form-section">
+      <form class="signup-form">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="InKyeongBae">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="example@email.com">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="************">
+
+        <p class="password-note">
+          Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.
+        </p>
+
+        <button type="submit" class="submit-btn">Sign up for GitHub</button>
+
+        <p class="terms">
+          By clicking “Sign up for GitHub”, you agree to our
+          <a href="#">Terms of Service</a> and
+          <a href="#">Privacy Statement</a>.
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="footer.png" alt="footer characters">
+  </footer>
+</body>
+</html>
