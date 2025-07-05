@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stopwatch</title>
+  <link rel="stylesheet" href="mystyle.css" />
+</head>
+<body>
+  <div class="container">
+    <section id="stopwatch">
+      <h2 class="timer">피로그래밍 스탑워치</h2>
+      <div id="timer-display">00:00</div>
+      <div class="controls">
+        <button id="start-btn" onclick="startTimer()">start</button>
+        <button id="stop-btn" onclick="stopTimer()">stop</button>
+        <button id="reset-btn" onclick="resetTimer()">reset</button>
+        <button id="switch-to-timer" onclick="showTimer()">타이머</button>
+      </div>
+    </section>
+    <section id="timer" style="display: none;">
+      <h2 class="timer">피로그래밍 타이머</h2>
+      <div id="countdown-display">00:00</div>
+      <div class="time-picker">
+        <label>분 <input type="number" id="minutes-input" min="0" max="59" value="0"></label>
+        <label>초 <input type="number" id="seconds-input" min="0" max="59" value="0"></label>
+      </div>
+      <div class="timer-controls">
+        <button id="timer-start-btn" onclick="startCountdown()">시작</button>
+        <button id="timer-stop-btn" onclick="stopCountdown()">정지</button>
+        <button id="timer-reset-btn" onclick="resetCountdown()">리셋</button>
+        <button onclick="showStopwatch()">스톱워치로 돌아가기</button>
+      </div>
+    </section>
+    <section id="record-controls">
+      <div class="record-header">
+        <button id="select-allBtn" onclick="toggleSelectAll()">✓</button>
+        <span class="record-title">구간기록</span>
+        <button id="deletebutton" onclick="deleteSelected()">❌</button>
+      </div>
+      <ul id="record-list">
+      </ul>
+    </section>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
