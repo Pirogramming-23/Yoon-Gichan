@@ -1,0 +1,43 @@
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f9f9;
+}
+
+header, footer {
+    background: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+form {
+    margin-top: 20px;
+}
+
+button {
+    padding: 8px 16px;
+    background: #0066cc;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #004999;
+}

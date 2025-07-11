@@ -1,0 +1,14 @@
+{% extends 'reviews/base.html' %}
+{% block title %}리뷰 목록{% endblock %}
+{% block content %}
+<h2>영화 리뷰 목록</h2>
+<ul>
+    {% for review in reviews %}
+        <li>
+            <a href="{% url 'review_detail' review.pk %}">{{ review.title }}</a> 
+            (평점: {{ review.rating }})
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'review_create' %}">리뷰 작성하기</a>
+{% endblock %}
