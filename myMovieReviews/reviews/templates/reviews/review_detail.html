@@ -1,13 +1,13 @@
 {% extends 'reviews/base.html' %}
-{% block title %}리뷰 상세{% endblock %}
+{% block title %}My Movies Reviews{% endblock %}
 {% block content %}
 <h2>{{ review.title }}</h2>
 <p>감독: {{ review.director }}</p>
-<p>배우: {{ review.actor }}</p>
+<p>주연배우: {{ review.actor }}</p>
 <p>장르: {{ review.genre }}</p>
-<p>러닝타임: {{ review.running_time }}</p>
-<p>개봉년도: {{ review.release_year }}</p>
-<p>평점: {{ review.rating }}</p>
+<p>러닝타임: {{ review.running_time }}분</p>
+<p>개봉년도: {{ review.release_year }}년</p>
+<p>평점: {{ review.rating }}/10 점</p>
 <p>리뷰 내용: {{ review.review_content }}</p>
 
 <a href="{% url 'review_update' review.pk %}">수정</a> | 
