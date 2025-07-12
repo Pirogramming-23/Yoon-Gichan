@@ -1,0 +1,19 @@
+{% extends 'reviews/base.html' %}
+{% block title %}My Movies Reviews{% endblock %}
+{% block content %}
+<h2>{{ review.title }}</h2>
+<p>감독: {{ review.director }}</p>
+<p>주연배우: {{ review.actor }}</p>
+<p>장르: {{ review.genre }}</p>
+<p>러닝타임: {{ review.running_time }}분</p>
+<p>개봉년도: {{ review.release_year }}년</p>
+<p>평점: {{ review.rating }}/10 점</p>
+<p>리뷰 내용: {{ review.review_content }}</p>
+
+<a href="{% url 'review_update' review.pk %}">수정</a> | 
+<form action="{% url 'review_delete' review.pk %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit">삭제</button>
+</form>
+<br><a href="{% url 'review_list' %}">목록으로 돌아가기</a>
+{% endblock %}

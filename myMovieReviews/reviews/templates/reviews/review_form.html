@@ -1,0 +1,11 @@
+{% extends 'reviews/base.html' %}
+{% block title %}리뷰 작성{% endblock %}
+{% block content %}
+<h2>리뷰 작성 / 수정</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">저장</button>
+</form>
+<a href="{% url 'review_list' %}">취소</a>
+{% endblock %}
