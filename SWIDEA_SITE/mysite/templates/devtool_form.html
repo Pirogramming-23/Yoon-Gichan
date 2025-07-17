@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}개발툴 등록{% endblock %}
+{% block content %}
+<h1>개발툴 등록</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">개발툴 이름</label>
+        <input type="text" id="name" name="name" value="{{ request.POST.name|default:devtool.name|default:'' }}" required>
+    </div>
+    <div class="form-group">
+        <label for="kind">개발툴 종류</label>
+        <select id="kind" name="kind" required>
+            <option value="웹 프레임워크" {% if devtool.kind == "웹 프레임워크" %}selected{% endif %}>웹 프레임워크</option>
+            <option value="프로그래밍 언어" {% if devtool.kind == "프로그래밍 언어" %}selected{% endif %}>프로그래밍 언어</option>
+            <option value="라이브러리" {% if devtool.kind == "라이브러리" %}selected{% endif %}>라이브러리</option>
+            <option value="기타" {% if devtool.kind == "기타" %}selected{% endif %}>기타</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="description">개발툴 설명</label>
+        <textarea id="description" name="description" rows="5" required>{{ request.POST.description|default:devtool.description|default:'' }}</textarea>
+    </div>
+    <button class="action-button" type="submit">저장</button>
+    <a class="action-button" href="{% url 'devtool_list' %}">취소</a>
+</form>
+{% endblock %}

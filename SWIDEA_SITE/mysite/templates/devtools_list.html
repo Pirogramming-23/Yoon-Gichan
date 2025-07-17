@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}개발툴 목록{% endblock %}
+{% block content %}
+<h1>개발툴 목록</h1>
+<div class="devtool-list">
+    {% for tool in devtools %}
+    <div class="devtool-card">
+        <a href="{% url 'devtool_detail' tool.id %}">
+            <h3>{{ tool.name }}</h3>
+        </a>
+        <p>설명: {{ tool.description|truncatewords:20 }}</p>
+    </div>
+    {% empty %}
+    <p>등록된 개발툴이 없습니다.</p>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">&laquo; 이전</a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">다음 &raquo;</a>
+    {% endif %}
+</div>
+{% endblock %}

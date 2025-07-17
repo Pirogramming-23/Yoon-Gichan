@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My SW Idea Manage{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'idea_list' %}">아이디어 관리</a></li>
+                <li><a href="{% url 'idea_register' %}">아이디어 등록</a></li>
+                <li><a href="{% url 'devtool_list' %}">개발툴 관리</a></li>
+                <li><a href="{% url 'devtool_register' %}">개발툴 등록</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2025 My SW Idea Manage</p>
+    </footer>
+</body>
+</html>

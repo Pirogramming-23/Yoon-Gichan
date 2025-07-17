@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}아이디어 관리{% endblock %}
+{% block content %}
+<h1>Idea List</h1>
+<div class="idea-sort">
+    <form method="get">
+        <label for="sort">정렬 기준:</label>
+        <select name="sort" id="sort" onchange="this.form.submit()">
+            <option value="recent" {% if sort == 'recent' %}selected{% endif %}>최신순</option>
+            <option value="interest" {% if sort == 'interest' %}selected{% endif %}>관심도순</option>
+            <option value="name" {% if sort == 'name' %}selected{% endif %}>이름순</option>
+        </select>
+    </form>
+</div>
+<div class="idea-list">
+    {% for idea in page_obj %}
+    <div class="idea-card">
+        <a href="{% url 'idea_detail' idea.id %}">
+            {% if idea.image %}
+                <img src="{{ idea.image.url }}" alt="{{ idea.title }}" style="width:100%; height:auto;">
+            {% else %}
+                <p>파일 없음</p>
+            {% endif %}
+            <h3>{{ idea.name }}</h3>
+        </a>
+        <p>예상 개발 툴: {{ idea.devtool.name }}</p>
+        <p>아이디어 관심도: {{ idea.interest }}</p>
+        <button class="action-button star-button" data-id="{{ idea.id }}">
+            {% if idea.id in starred_ideas %}★{% else %}☆{% endif %}
+        </button>
+        <button class="action-button interest-button" data-id="{{ idea.id }}" data-action="up">관심도 +</button>
+        <button class="action-button interest-button" data-id="{{ idea.id }}" data-action="down">관심도 -</button>
+    </div>
+    {% empty %}
+    <p>등록된 아이디어가 없습니다.</p>
+    {% endfor %}
+</div>
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">&laquo; 이전</a>
+    {% endif %}
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">다음 &raquo;</a>
+    {% endif %}
+</div>
+
+<script>
+document.querySelectorAll('.star-button').forEach(button => {
+    button.addEventListener('click', e => {
+        e.preventDefault();
+        const id = button.dataset.id;
+        fetch(`/idea/${id}/toggle_star_ajax/`, { method: 'POST', headers: { 'X-CSRFToken': '{{ csrf_token }}' } })
+        .then(response => response.json())
+        .then(data => {
+            button.textContent = data.result === 'starred' ? '★' : '☆';
+        });
+    });
+});
+
+document.querySelectorAll('.interest-button').forEach(button => {
+    button.addEventListener('click', e => {
+        e.preventDefault();
+        const id = button.dataset.id;
+        const action = button.dataset.action;
+        fetch(`/idea/${id}/adjust_interest_ajax/`, {
+            method: 'POST',
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            body: new URLSearchParams({ action })
+        })
+        .then(response => response.json())
+        .then(data => {
+            button.closest('.idea-card').querySelector('p:last-of-type').textContent = `아이디어 관심도: ${data.interest}`;
+        });
+    });
+});
+</script>
+{% endblock %}
