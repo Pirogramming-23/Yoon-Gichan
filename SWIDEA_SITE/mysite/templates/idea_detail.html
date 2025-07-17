@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}아이디어 상세보기{% endblock %}
+{% block content %}
+<h1>{{ idea.name }}</h1>
+<div class="idea-detail">
+    {% if idea.image %}
+        <img src="{{ idea.image.url }}" alt="{{ idea.name }}" style="max-width: 100%; height: auto;">
+    {% else %}
+        <p>파일 없음</p>
+    {% endif %}
+    <p><strong>설명:</strong> {{ idea.description }}</p>
+    <p><strong>예상 개발 툴:</strong> {{ idea.devtool.name }}</p>
+    <p><strong>관심도:</strong> {{ idea.interest }}</p>
+    <form method="post" action="{% url 'toggle_star' idea.id %}" style="display:inline;">
+        {% csrf_token %}
+        {% if starred %}
+            <button class="action-button" type="submit">찜 해제</button>
+        {% else %}
+            <button class="action-button" type="submit">찜하기</button>
+        {% endif %}
+    </form>
+    <form method="post" action="{% url 'adjust_interest' idea.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button class="action-button" name="action" value="up" type="submit">관심도 +</button>
+        <button class="action-button" name="action" value="down" type="submit">관심도 -</button>
+    </form>
+</div>
+<div class="idea-actions">
+    <a class="action-button" href="{% url 'idea_update' idea.id %}">수정</a>
+    <form method="post" action="{% url 'idea_delete' idea.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button class="action-button" type="submit" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+    </form>
+    <a class="action-button" href="{% url 'idea_list' %}">목록으로</a>
+</div>
+{% endblock %}
