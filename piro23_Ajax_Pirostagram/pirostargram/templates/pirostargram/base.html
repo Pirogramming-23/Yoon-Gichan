@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script src="https://kit.fontawesome.com/7d6a50a6b2.js" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="./reset.css"> -->
+    <title>Pirostargram</title>
+  </head>
+  <body>
+    <header>
+      <div class="header__container">
+        <div class="header__icon"><i class="fas fa-cog"></i></div>
+        <div class="header__username">pirogramming</div>
+        <div class="header__icon"><i class="fas fa-user-plus"></i></div>
+      </div>
+    </header>
+    {% block content %}
+    <main>
+      <div class="profile">
+        <div class="profile__top">
+          <div class="profile__img">
+            <img src="https://picsum.photos/300/500" alt="" />
+          </div>
+          <div class="profile__right">
+            <div class="profile__username">pirogramming</div>
+            <div class="profile__btn"><button>프로필 편집</button></div>
+          </div>
+        </div>
+        <div class="profile__bottom">
+          <span class="profile__name">윤기찬</span><br />
+          <span class="profile__info">인생은 짧은거 같습니다 <br />파이썬3를 사용해보던지 말던지!!!</span>
+        </div>
+      </div>
+      {% comment %} 스토리 하이라이트 {% endcomment %}
+      <div class="story">
+        <div class="story__container">
+          <div class="story__content">
+            <div class="story__img">
+              <img src="https://picsum.photos/seed/picsum1/200/300" alt="" />
+            </div>
+            <div class="story__title">여행</div>
+          </div>
+          <div class="story__content">
+            <div class="story__img">
+              <img src="https://picsum.photos/seed/picsum2/200/300" alt="" />
+            </div>
+            <div class="story__title">여행</div>
+          </div>
+          <div class="story__content">
+            <div class="story__img">
+              <img src="https://picsum.photos/seed/picsum3/200/300" alt="" />
+            </div>
+            <div class="story__title">여행</div>
+          </div>
+          <div class="story__content">
+            <div class="story__img">
+              <img src="https://picsum.photos/seed/picsum4/200/300" alt="" />
+            </div>
+            <div class="story__title">여행</div>
+          </div>
+      </div>
+      {% comment %} 게시글 {% endcomment %}
+    <div class="content">
+    <div class="content__container">
+        {% for post in posts %}
+        <div class="content__photo">
+            <a href="{% url 'post_detail' post.id %}">
+            {% for image in post.images.all %}
+                <img src="{{ image.image.url }}" alt="Post Image" />
+            {% endfor %}
+            </a>
+        </div>
+        {% empty %}
+        <p>게시물이 없습니다.</p>
+        {% endfor %}
+    </div>
+    </div>
+    </main>
+    {% endblock content %}
+    <footer>
+      <div class="footer__container">
+        <div class="footer__item"><i class="fas fa-home"></i></div>
+        <div class="footer__item"><i class="fas fa-search"></i></div>
+        <div class="footer__item">
+          <a href="{% url 'create_post' %}" aria-label="게시글 작성 페이지로 이동"><i class="far fa-plus-square"></i></a>
+        </div>
+        <div class="footer__item"><i class="far fa-heart"></i></div>
+        <div class="footer__image"><img src="http://placekitten.com/300/300" alt="" /></div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,131 @@
+{% extends 'pirostargram/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="post-detail">
+  <div class="post-detail__container">
+    <!-- 이미지 영역 -->
+    <div class="post-detail__images">
+      {% for image in post.images.all %}
+        <img src="{{ image.image.url }}" alt="Post Image" class="post-detail__img">
+      {% endfor %}
+    </div>
+
+    <!-- 본문 영역 -->
+    <div class="post-detail__content">
+      <div class="post-detail__header">
+        <i class="fas fa-user-circle"></i> 유저이름 (예: {{ post.author.username }})
+      </div>
+
+      <div class="post-detail__actions">
+        <i class="fa-heart like-button {% if user.is_authenticated and user in post.likes.all %}fas text-danger{% else %}far{% endif %}" data-post-id="{{ post.id }}" style="cursor:pointer;"></i>
+        <span id="like-count-{{ post.id }}">{{ post.likes.count }}</span>
+        <i class="far fa-comment comment-btn" data-post-id="{{ post.id }}"></i>
+      </div>
+
+      <div class="post-detail__caption">
+        <strong>유저이름</strong> 여기에 게시글 설명이 들어갑니다.
+      </div>
+
+      <div class="post-detail__comments">
+        <h3>댓글</h3>
+        <ul id="comment-list-{{ post.id }}">
+          {% for comment in post.comments.all %}
+            <li id="comment-{{ comment.id }}">
+              <strong>{{ comment.author.username|default:'익명' }}</strong> {{ comment.content }} ❤️ {{ comment.like_count }}
+              {% if comment.author == user %}
+              <button class="delete-comment" data-comment-id="{{ comment.id }}">삭제</button>
+              {% endif %}
+            </li>
+          {% empty %}
+            <li>댓글이 없습니다.</li>
+          {% endfor %}
+        </ul>
+        <div class="comment-box" id="comment-box-{{ post.id }}"></div>
+        <form method="POST" action="{% url 'add_comment' post.id %}" class="comment-form" id="comment-form-{{ post.id }}">
+          {% csrf_token %}
+          <input type="text" name="content" placeholder="댓글을 입력하세요..." required>
+          <button type="submit">게시</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // 좋아요 토글
+      document.querySelectorAll('.like-button').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const postId = this.dataset.postId;
+          fetch(`/post/${postId}/like/`, {
+            method: 'POST',
+            headers: {
+              'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            },
+          })
+          .then(res => res.json())
+          .then(data => {
+            const likeCount = document.getElementById(`like-count-${postId}`);
+            likeCount.textContent = data.like_count;
+            if (data.liked) {
+              this.classList.remove('far');
+              this.classList.add('fas', 'text-danger');
+            } else {
+              this.classList.remove('fas', 'text-danger');
+              this.classList.add('far');
+            }
+          });
+        });
+      });
+      // 댓글 삭제 이벤트 등록 함수
+      function registerDeleteCommentEvents() {
+        document.querySelectorAll(".delete-comment").forEach(button => {
+          button.onclick = function () {
+            const commentId = this.dataset.commentId;
+            const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]').value;
+            fetch(`/delete_comment/${commentId}/`, {
+              method: "POST",
+              headers: {
+                "X-CSRFToken": csrfToken,
+              },
+            })
+            .then(response => {
+              if (response.ok) {
+                document.getElementById(`comment-${commentId}`).remove();
+              } else {
+                response.json().then(data => alert(data.error || '삭제 실패'));
+              }
+            });
+          }
+        });
+      }
+      // 최초 등록
+      registerDeleteCommentEvents();
+      // 댓글 Ajax
+      const commentForms = document.querySelectorAll(".comment-form");
+      commentForms.forEach(function(form) {
+        form.addEventListener("submit", function(e) {
+          e.preventDefault();
+          const postId = this.id.split("-")[2];
+          const url = this.action;
+          const content = this.querySelector("input[name='content']").value;
+          const csrfToken = this.querySelector("[name='csrfmiddlewaretoken']").value;
+          fetch(url, {
+            method: "POST",
+            headers: {
+              "X-CSRFToken": csrfToken,
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `content=${encodeURIComponent(content)}`,
+          })
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById(`comment-list-${postId}`).innerHTML = html;
+            form.reset();
+            registerDeleteCommentEvents(); // 댓글 렌더링 후 삭제 이벤트 재등록
+          });
+        });
+      });
+    });
+</script>
+{% endblock %}

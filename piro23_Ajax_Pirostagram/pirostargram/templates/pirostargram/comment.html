@@ -1,0 +1,14 @@
+{% for comment in comments %}
+  <li id="comment-{{ comment.id }}">
+    <strong>
+      {% if comment.author %}{{ comment.author.username }}
+      {% elif comment.nickname %}{{ comment.nickname }}
+      {% else %}익명{% endif %}
+    </strong> {{ comment.content }} ❤️ {{ comment.like_count }}
+    {% if comment.author == user or not comment.author %}
+    <button class="delete-comment" data-comment-id="{{ comment.id }}">삭제</button>
+    {% endif %}
+  </li>
+{% empty %}
+  <li>댓글이 없습니다.</li>
+{% endfor %}

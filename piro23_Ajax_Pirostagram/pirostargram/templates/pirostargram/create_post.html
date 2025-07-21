@@ -1,0 +1,30 @@
+{% extends 'pirostargram/base.html' %}
+
+{% block content %}
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+<div class="post-create-container">
+  <h2>새 게시글 작성</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>
+      <label for="id_title">제목</label>
+      {{ form.title }}
+    </p>
+    <p>
+      <label for="id_caption">내용</label>
+      {{ form.caption }}
+    </p>
+    <p>
+      <label for="id_images">이미지</label>
+      <input type="file" name="images" id="id_images" multiple>
+    </p>
+    <button type="submit">업로드</button>
+  </form>
+</div>
+{% endblock %}
