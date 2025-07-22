@@ -1,0 +1,23 @@
+
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="login-container">
+  <h2>로그인</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <label for="username">아이디:</label>
+      <input type="text" name="username" id="username" required>
+    </div>
+    <div>
+      <label for="password">비밀번호:</label>
+      <input type="password" name="password" id="password" required>
+    </div>
+    <button type="submit">로그인</button>
+  </form>
+  {% if form.errors %}
+    <p style="color:red;">아이디 또는 비밀번호가 잘못되었습니다.</p>
+  {% endif %}
+</div>
+{% endblock %}
